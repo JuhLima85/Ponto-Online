@@ -1,0 +1,92 @@
+/* Define a fonte e a cor do texto */
+body {
+	background-color: #F5F5F5;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Define um estilo do título principal */
+.comMargem {
+	text-align: left;
+	margin-top: 80px;  
+}
+
+.semMargem{
+	text-align: left;
+}
+
+/* Adiciona um espaçamento entre os elementos */
+form, div {
+  margin-bottom: 20px;
+}
+
+/* Define um estilo para o botão */
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+input[type="button"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+}
+
+input[type="button"]:hover {
+        background-color: #3e8e41;
+    }
+.editar {
+	background-color: blue;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 05px;
+}
+.excluir{
+	background-color: red;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+}
+
+/* Define um estilo para a tabela */
+.horarios {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 500px;
+   float: left;
+}
+
+.horarios th, .horarios td {
+    text-align: center;
+    padding: 10px;
+}
+
+.horarios th {
+    background-color: #ddd; /*#ddd*/
+    font-weight: bold;
+}
+
+.horarios tbody tr:nth-child(even) {
+    background-color: #D6EAF8; /*f2f2f2*/
+}
+
+/* Limpa o posicionamento anterior */
+.clear {
+  clear: both;
+}
