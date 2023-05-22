@@ -56,9 +56,7 @@ public class CalculoAtrasoDAO {
 		return "Sem atraso.";
 	}
 	
-	public static ResultadoCalculoAtraso calculoDeHorasExtras(MarcacoesFeitas mf) {
-	    //MarcacoesFeitasDAO mfdao = new MarcacoesFeitasDAO();
-	    //MarcacoesFeitas mf = mfdao.buscarPorCpf(cpf);
+	public static ResultadoCalculoAtraso calculoDeHorasExtras(MarcacoesFeitas mf) {	   
 	    HoraDeTrabalhoDAO hdtdao = new HoraDeTrabalhoDAO();
 	    HorarioDeTrabalho hdt = hdtdao.buscarPorCpf(mf.getCpf());
 
@@ -83,8 +81,7 @@ public class CalculoAtrasoDAO {
 
 	    return new ResultadoCalculoAtraso(CodigoErro.INFORMACAO_INCOMPLETA, "Informação de horário incompleta");
 	}
-
-	//public void salvar(CalculoAtraso registroPonto) {
+	
 	public void salvar(MarcacoesFeitas registroPonto) {
        EntityManager entityManager = entityManagerFactory.createEntityManager();
        try {
@@ -97,7 +94,20 @@ public class CalculoAtrasoDAO {
            entityManager.close();
        }
    }
-
+	
+	//Salvar marcações feitas na mesma linha
+	  public void atualizar(MarcacoesFeitas registroPonto) {
+	        EntityManager entityManager = entityManagerFactory.createEntityManager();
+	        try {
+	            entityManager.getTransaction().begin();
+	            entityManager.merge(registroPonto);
+	            entityManager.getTransaction().commit();
+	        } catch (Exception e) {
+	            entityManager.getTransaction().rollback();
+	        } finally {
+	            entityManager.close();
+	        }
+	    }
 	    
 	    public static void calcularEInserirAtraso(MarcacoesFeitas mf) {
 	        ResultadoCalculoAtraso resultado = calculoDeHorasExtras(mf);
@@ -109,34 +119,30 @@ public class CalculoAtrasoDAO {
 	        // Agora podemos dividir a string em horas e minutos
 	        String[] partes = atraso.split(" e ");
 	        String horas = partes[0].replace(" horas", "");
-	        String minutos = partes[1].replace(" minutos", "");
-	        
-	        // Obtenha o período de atraso do objeto ResultadoCalculoAtraso
-	        // Obtenha o período de atraso, entrada e saída do objeto ResultadoCalculoAtraso
+	        String minutos = partes[1].replace(" minutos", "");	        
+	       
+	        // Obtem o período de atraso, entrada e saída do objeto ResultadoCalculoAtraso
 	        String MarcacaoEntrada = resultado.getEntrada();
 	        String MarcacaoSaida = resultado.getSaida();
 	        String periodoAtraso = resultado.getPeriodoAtraso();
 	        
-	        // Agora temos as horas e os minutos como strings. Podemos criar uma string no formato TIME do SQL
+	        //Agora temos as horas e os minutos como strings. Podemos criar uma string no formato TIME do SQL
 	        String timeSql = horas + ":" + minutos + ":00";
 	        
-	        // Agora podemos criar um novo objeto CalculoAtraso e inseri-lo no banco de dados
-	        //CalculoAtraso calculoAtraso = new CalculoAtraso();
+	        // Agora podemos criar um novo objeto CalculoAtraso e inseri-lo no banco de dados	       
 	        MarcacoesFeitas calculoAtraso = new MarcacoesFeitas();
+	        calculoAtraso.setId(mf.getId()); 
 	        calculoAtraso.setCpf(mf.getCpf());
-	        calculoAtraso.setQtdHorasNegativa(timeSql);
-	        //calculoAtraso.setEntrada(timeSql);
-	        //calculoAtraso.setSaida(timeSql);
+	        calculoAtraso.setQtdHorasNegativa(timeSql);		        
 	        
-	        // Defina o campo 'periodoAtraso' do objeto CalculoAtraso com o valor adequado
-	        // Defina os campos 'entrada', 'saida' e 'periodoAtraso' do objeto CalculoAtraso com o valor adequado
-	        calculoAtraso.setEntrada(MarcacaoEntrada);;
+	        // Define os campos 'entrada', 'saida' e 'periodoAtraso' do objeto CalculoAtraso com o valor adequado
+	        calculoAtraso.setEntrada(MarcacaoEntrada);
 	        calculoAtraso.setSaida(MarcacaoSaida);
 	        calculoAtraso.setPeriodoAtraso(periodoAtraso);
 	        
-	        // Inserimos o atraso no banco de dados
-	        CalculoAtrasoDAO atrasoDAO = new CalculoAtrasoDAO();
-	        atrasoDAO.salvar(calculoAtraso);
+	        // Atualizar a entrada, saida, o periodo de atraso e o horas negativas no banco de dados
+	        CalculoAtrasoDAO atrasoDAO = new CalculoAtrasoDAO();	        
+	        atrasoDAO.atualizar(calculoAtraso);	       
 	    }	   
 	    
 	    public List<CalculoAtraso> listarTodos() {
@@ -160,7 +166,7 @@ public class CalculoAtrasoDAO {
 	            entityManager.close();
 	        }
 	    }
-//-->
+
 	    public String buscarUltimoRegistro() {
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
 		    try {
@@ -184,8 +190,4 @@ public class CalculoAtrasoDAO {
 		        entityManager.close();
 		    }
 		}
-	   
-
-
-
 }

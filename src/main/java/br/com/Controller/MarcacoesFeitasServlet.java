@@ -83,12 +83,13 @@ public class MarcacoesFeitasServlet extends HttpServlet {
         horario.setIntervaloFim(intervaloFim);
         horario.setSaida(saida);
         
-        if(entrada == null || entrada.isEmpty()) {         	   
-        	   
-        	// Buscar entrada pelo último id
-           	horario.setEntrada(marcacoesFeitasDAO.buscarUltimaEntrada());           	
-           	
-           	// Chama o método adicionarAtraso 
+        if(entrada == null || entrada.isEmpty()) {        	   
+               
+        	MarcacoesFeitas resgate = new MarcacoesFeitas();
+        	resgate = marcacoesFeitasDAO.buscarUltimaEntrada();
+        	horario.setId(resgate.getId());
+        	horario.setEntrada(resgate.getEntrada());           	
+          
            	CalculoAtrasoServlet calculoAtrasoServlet = new CalculoAtrasoServlet();       
            	calculoAtrasoServlet.adicionarAtraso(horario);      
         }else { 
@@ -100,38 +101,7 @@ public class MarcacoesFeitasServlet extends HttpServlet {
         listarMarcacoes(request, response);
         
 }
-
-//    private void adicionarMarcacao(HttpServletRequest request, HttpServletResponse response)
-//            throws Exception {
-//    	String cpf = trabalho.buscarUltimoRegistro();
-//    	request.getParameter("cpf");
-//    	String entrada = request.getParameter("entrada");
-//        String intervaloInicio = request.getParameter("intervaloInicio");
-//        String intervaloFim = request.getParameter("intervaloFim");
-//        String saida = request.getParameter("saida");
-//
-//        if (        	
-//           entrada == null || entrada.isEmpty() ||           
-//            saida == null || saida.isEmpty()) {
-//        	 throw new Exception("Todos os campos devem ser preenchidos");
-//        }
-//
-//        MarcacoesFeitas horario = new MarcacoesFeitas();
-//        horario.setCpf(cpf);
-//        horario.setEntrada(entrada);
-//        horario.setIntervaloInicio(intervaloInicio);
-//        horario.setIntervaloFim(intervaloFim);
-//        horario.setSaida(saida);
-//        //marcacoesFeitasDAO.salvar(horario);   agora vai salvar quando salvar os calculos
-//        
-//        // Chama o método adicionarAtraso 
-//        CalculoAtrasoServlet calculoAtrasoServlet = new CalculoAtrasoServlet();       
-//        calculoAtrasoServlet.adicionarAtraso(cpf);      
-//        
-//        listarMarcacoes(request, response);
-//        
-//}
-
+    
     private void removerMarcacao(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {       
     	String cpf = request.getParameter("cpf");
@@ -149,8 +119,7 @@ public class MarcacoesFeitasServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        	//http://localhost:8080/RegisterPoint/HoraDeTrabalhoServlet?action=list
+        String action = request.getParameter("action");        	
         if (action != null) {
             switch (action) {
                 case "delete":

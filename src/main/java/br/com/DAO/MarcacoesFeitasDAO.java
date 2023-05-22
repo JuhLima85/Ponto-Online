@@ -4,12 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import br.com.Entity.HorarioDeTrabalho;
 import br.com.Entity.MarcacoesFeitas;
 
 public class MarcacoesFeitasDAO {
@@ -28,19 +26,6 @@ public class MarcacoesFeitasDAO {
 	            entityManager.getTransaction().commit();
 	        } catch (Exception e) {
 	            entityManager.getTransaction().rollback();	        	
-	        } finally {
-	            entityManager.close();
-	        }
-	    }
-
-	    public void atualizar(MarcacoesFeitas registroPonto) {
-	        EntityManager entityManager = entityManagerFactory.createEntityManager();
-	        try {
-	            entityManager.getTransaction().begin();
-	            entityManager.merge(registroPonto);
-	            entityManager.getTransaction().commit();
-	        } catch (Exception e) {
-	            entityManager.getTransaction().rollback();
 	        } finally {
 	            entityManager.close();
 	        }
@@ -64,10 +49,9 @@ public class MarcacoesFeitasDAO {
 	        }
 	    }
 	    
-	    public String buscarUltimaEntrada() {
+	    public MarcacoesFeitas buscarUltimaEntrada() {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
-	        try {
-	        	//SELECT m FROM Marca m WHERE m.id = (SELECT MAX(m2.id) FROM Marca m2)
+	        try {	        	
 	            String jpql = "SELECT m FROM MarcacoesFeitas m WHERE m.id = (SELECT MAX(m2.id) FROM MarcacoesFeitas m2)";
 	            TypedQuery<MarcacoesFeitas> query = entityManager.createQuery(jpql, MarcacoesFeitas.class);
 	            query.setMaxResults(1);
@@ -76,20 +60,15 @@ public class MarcacoesFeitasDAO {
 
 	            if (!resultados.isEmpty()) {
 	            	MarcacoesFeitas ultimoRegistro = resultados.get(0);
-	                // Construa a representação em formato de String do último registro
-	                String representacao = ultimoRegistro.getEntrada();
-	                // Substitua os getters e formate a representação conforme sua necessidade
 
-	                return representacao;
+	                return ultimoRegistro;
 	            }
 
-	            return null; // Retorna null caso não seja encontrado nenhum registro
+	            return null; 
 	        } finally {
 	            entityManager.close();
 	        }
 	    }
-
-
 
 	    public List<MarcacoesFeitas> listarTodos() {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -122,9 +101,8 @@ public class MarcacoesFeitasDAO {
 	    public void excluirPorCPF(String cpf) {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
 	        try {
-	            entityManager.getTransaction().begin();
-	            
-	            // Consulta para encontrar os registros de ponto pelo CPF
+	            entityManager.getTransaction().begin();	            
+	           
 	            Query query = entityManager.createQuery("SELECT h FROM HorarioDeTrabalho h WHERE h.cpf = :cpf");
 	            query.setParameter("cpf", cpf);
 	            List<MarcacoesFeitas> registros = query.getResultList();
@@ -141,7 +119,4 @@ public class MarcacoesFeitasDAO {
 	            entityManager.close();
 	        }
 	    }
-
-	   
-
 }

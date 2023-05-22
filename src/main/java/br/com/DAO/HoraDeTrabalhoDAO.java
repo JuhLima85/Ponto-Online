@@ -148,7 +148,7 @@ public class HoraDeTrabalhoDAO {
                 return representacao;
             }
 
-            return null; // Retorna null caso não seja encontrado nenhum registro
+            return null;
         } finally {
             entityManager.close();
         }
