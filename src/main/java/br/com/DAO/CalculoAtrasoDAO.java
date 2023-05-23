@@ -60,6 +60,8 @@ public class CalculoAtrasoDAO {
 	    HoraDeTrabalhoDAO hdtdao = new HoraDeTrabalhoDAO();
 	    HorarioDeTrabalho hdt = hdtdao.buscarPorCpf(mf.getCpf());
 
+	    String periodoAtraso;
+	    
 	    if (mf != null && hdt != null) {
 	        LocalTime timeMf = LocalTime.parse(mf.getEntrada());
 	        LocalTime timeHdt = LocalTime.parse(hdt.getEntrada());
@@ -72,7 +74,11 @@ public class CalculoAtrasoDAO {
 	            return new ResultadoCalculoAtraso("O horário está igual", null, null, null);
 	        } else {
 	            LocalTime periodoInicio = timeHdt.minusMinutes(minutesBetween);
-	            String periodoAtraso = periodoInicio.toString() + " às " + timeHdt.toString();
+	            if(minutesBetween < 0) {
+	            	periodoAtraso = timeHdt.toString() + " às " + periodoInicio.toString();
+	            }else {
+	            	periodoAtraso = periodoInicio.toString() + " às " + timeHdt.toString();
+	            }	 	         
 	            String entrada = mf.getEntrada();
 	            String saida = mf.getSaida();
 	            return new ResultadoCalculoAtraso(hours + " horas e " + minutes + " minutos", periodoAtraso, entrada, saida);
@@ -109,7 +115,7 @@ public class CalculoAtrasoDAO {
 	        }
 	    }
 	    
-	    public static void calcularEInserirAtraso(MarcacoesFeitas mf) {
+	  public static void calcularEInserirAtraso(MarcacoesFeitas mf) {
 	        ResultadoCalculoAtraso resultado = calculoDeHorasExtras(mf);
 	        
 	        String atraso = resultado.getDiferenca();

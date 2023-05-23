@@ -113,7 +113,7 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodos();
 		request.setAttribute("horarios", horarios);
-		request.getRequestDispatcher("controleDeHora.jsp").forward(request, response);
+		request.getRequestDispatcher("horarioTrabalho.jsp").forward(request, response);
 	}
 	
 	private void exibirFormularioEdicao(HttpServletRequest request, HttpServletResponse response)

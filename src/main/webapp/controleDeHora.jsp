@@ -7,25 +7,46 @@
 <head>
 <title>Marcaçoes Feitas</title>
 <link rel="stylesheet" href="style.css">
+
+<style>
+  .cpf {
+    font-weight: bold;
+    color: red;   
+  }
+
+  .horario-container {
+    display: flex;
+  }
+
+  .horario-item {
+    margin-right: 10px;
+  }
+</style>
 </head>
 <body>
 
 <div class="container">	
 	<h2 class="semMargem">Registro de ponto</h2>
-	<h2 class="semMargem">Horário de Trabalho</h2>
+	<h2 class="semMargem">Horário de Trabalho Previsto</h2>
 	   
    <ul id="horariosList">
-<c:forEach var="horario" items="${horarios}">
-<li>
-<strong>CPF:</strong> ${horario.getCpf()}<br>
-<strong>Entrada:</strong> ${horario.getEntrada()}<br>
-<strong>Saída:</strong> ${horario.getSaida()}
-</li>
-</c:forEach>
-<c:if test="${empty horarios}">
-<li>Nenhum horário registrado.</li>
-</c:if>
-</ul>	
+  <c:forEach var="horario" items="${horarios}">
+    <li>
+      <strong>CPF:</strong> <span class="cpf">${horario.getCpf()}</span><br><br>
+      <div class="horario-container">
+        <div class="horario-item">
+          <strong>Entrada:</strong> ${horario.getEntrada()}
+        </div>
+        <div class="horario-item">
+          <strong>Saída:</strong> ${horario.getSaida()}
+        </div>
+      </div>
+    </li>
+  </c:forEach>
+  <c:if test="${empty horarios}">
+    <li>Nenhum horário registrado.</li>
+  </c:if>
+</ul>
 	
 	<h2 class="comMargem">Marcações Feitas</h2>
 	<form  method="POST" action="MarcacoesFeitasServlet">
@@ -44,8 +65,8 @@
 			<tr>
 				<th>Entrada</th>				
 				<th>Saída</th>
-				<th>Período de Atraso</th>
-				<th>Horas Negativas</th>
+				<th>Período Alterado</th>
+				<th>Horas Extras / Atrasos</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -66,7 +87,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
 <script>
+//ver se esse escript está sendo aplicado
 var horarios = ${horarios}; // Obtém a lista de horários do atributo "horarios" do objeto request
 
 var horariosListElement = document.getElementById("horariosList");
@@ -108,8 +131,6 @@ if (horarios.length > 0) {
   //para aplicar automaticamente a máscara ao campo de valor hora
   $(document).ready(function() {
   $('input[name="entrada"]').mask('00:00');
-  $('input[name="intervaloInicio"]').mask('00:00');
-  $('input[name="intervaloFim"]').mask('00:00');
   $('input[name="saida"]').mask('00:00');
 });
 </script>

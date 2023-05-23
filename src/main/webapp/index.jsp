@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Registro de Ponto</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Gloria a Deus</h1>
+ <h1>Registro de Ponto</h1>
+    <form method="post" action="login.jsp">
+        <input type="submit" name="button" value="Recursos Humanos">
+        <input type="submit" name="button" value="Funcionários">
+    </form>
 </body>
 </html>
