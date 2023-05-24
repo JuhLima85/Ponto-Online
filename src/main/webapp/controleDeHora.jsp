@@ -27,25 +27,32 @@
 
 <div class="container">	
 	<h2 class="semMargem">Registro de ponto</h2>
-	<h2 class="semMargem">Horário de Trabalho Previsto</h2>
+	<h2 class="semMargem">Previsão de Horários de Trabalho</h2>
+	
+	<form method="POST" action="HoraDeTrabalhoServlet">
+    <input type="hidden" name="action" value="list">
+    <label for="cpf">CPF:</label>
+    <input type="text" id="cpf" name="cpf">
+    <input type="submit" value="Horários Previstos">
+</form>
 	   
    <ul id="horariosList">
-  <c:forEach var="horario" items="${horarios}">
-    <li>
-      <strong>CPF:</strong> <span class="cpf">${horario.getCpf()}</span><br><br>
-      <div class="horario-container">
-        <div class="horario-item">
-          <strong>Entrada:</strong> ${horario.getEntrada()}
-        </div>
-        <div class="horario-item">
-          <strong>Saída:</strong> ${horario.getSaida()}
-        </div>
-      </div>
-    </li>
-  </c:forEach>
-  <c:if test="${empty horarios}">
-    <li>Nenhum horário registrado.</li>
-  </c:if>
+   <c:forEach var="horario" items="${sessionScope.horarios}">
+        <li>
+            <strong>CPF:</strong> <span class="cpf">${horario.getCpf()}</span><br><br>
+            <div class="horario-container">
+                <div class="horario-item">
+                    <strong>Entrada:</strong> ${horario.getEntrada()}
+                </div>
+                <div class="horario-item">
+                    <strong>Saída:</strong> ${horario.getSaida()}
+                </div>
+            </div>
+        </li>
+    </c:forEach>
+    <c:if test="${empty sessionScope.horarios}">
+        <li>Nenhum CPF informado.</li>
+    </c:if>
 </ul>
 	
 	<h2 class="comMargem">Marcações Feitas</h2>
@@ -92,6 +99,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 <script>
+/*
 //ver se esse escript está sendo aplicado
 var horarios = ${horarios}; // Obtém a lista de horários do atributo "horarios" do objeto request
 
@@ -107,9 +115,10 @@ if (horarios.length > 0) {
   }
 } else {
   var noHorariosItem = document.createElement("li");
-  noHorariosItem.textContent = "Nenhum horário registrado.";
+  noHorariosItem.textContent = "Nenhum CPF informado.";
   horariosListElement.appendChild(noHorariosItem);
 }
+*/
 </script>
 	<script>
   	function editarHorario(id) {

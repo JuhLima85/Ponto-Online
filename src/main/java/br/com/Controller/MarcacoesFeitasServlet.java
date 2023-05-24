@@ -36,25 +36,13 @@ public class MarcacoesFeitasServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {   
-    	//Teste
-   	 System.out.println("Iniciando doPost() em MarcacoesFeitasDAO");
-		String action = request.getParameter("action");
-		
+            throws ServletException, IOException {      	
+		String action = request.getParameter("action");		
     	try {
 			switch (action) {
 			case "add":
 				adicionarMarcacao(request, response);				
-				break;
-			case "delete_all":
-				//removerHorario(request, response);
-				break;
-			case "delete":
-				//removerHorarioPorId(request, response);
-				break;
-			 case "edit":
-	            //    atualizarHorario(request, response);
-	                break;
+				break;		
 			default:
 				listarMarcacoes(request, response);
 				break;
@@ -69,7 +57,9 @@ public class MarcacoesFeitasServlet extends HttpServlet {
     
     private void adicionarMarcacao(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-    	String cpf = trabalho.buscarUltimoRegistro();
+    	
+    	String cpf = (String) request.getSession().getAttribute("cpf");// recebe cpf controleDeHora.jsp (marcaçoes feitas)
+    	//String cpf = trabalho.buscarUltimoRegistro();
     	request.getParameter("cpf");
     	String entrada = request.getParameter("entrada");
         String intervaloInicio = request.getParameter("intervaloInicio");
