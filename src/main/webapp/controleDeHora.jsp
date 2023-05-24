@@ -82,6 +82,9 @@
 	</table>
 
 	<div class="clear"></div>	
+	 <div class="voltar-container">
+    <a href="index.jsp" class="btn-voltar">Voltar</a>
+  </div>
 	
 	</div>
 

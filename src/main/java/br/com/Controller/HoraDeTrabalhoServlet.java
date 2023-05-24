@@ -11,39 +11,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.DAO.HoraDeTrabalhoDAO;
-import br.com.DAO.MarcacoesFeitasDAO;
 import br.com.Entity.HorarioDeTrabalho;
-import br.com.Entity.MarcacoesFeitas;
 
 @WebServlet("/HoraDeTrabalhoServlet")
 public class HoraDeTrabalhoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private HoraDeTrabalhoDAO horaDeTrabalhoDAO;
-	
+	// String cpf;
 
 	public void init() throws ServletException {
 		super.init();
 		horaDeTrabalhoDAO = new HoraDeTrabalhoDAO();
-		try {
-			listarHorarios();
+		try {			
+	        //listarHorarios();
 		} catch (Exception e) {
 			throw new ServletException("Erro ao listar horários", e);
 		}
 	}
 
 	// Para que os horários permaneçam listado ao navegar na tela
-	private void listarHorarios() {
-		List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodos();
-		getServletContext().setAttribute("horarios", horarios);
-	}
+//	private void listarHorarios(cpf) {
+//		List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);
+//		getServletContext().setAttribute("horarios", horarios);
+//	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		//Teste
-		 System.out.println("Iniciando doPost() em HoraDeTrabalhoServlet");
+			throws ServletException, IOException {		
 		String action = request.getParameter("action");
-
+		//cpf = request.getParameter("cpf");
+		 String button = request.getParameter("button");
+		  
+		  if (button != null && button.equals("Funcionários")) {
+		    listarHorariosMF(request, response);
+		  } 
+		
 		try {
 			switch (action) {
 			case "add":
@@ -60,6 +62,7 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 	                break;
 			default:
 				listarHorarios(request, response);
+				//listarHorarios(cpf);
 				break;
 			}
 		} catch (Exception e) {
@@ -111,10 +114,21 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 
 	private void listarHorarios(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodos();
+		String cpf = request.getParameter("cpf");
+		List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);
 		request.setAttribute("horarios", horarios);
 		request.getRequestDispatcher("horarioTrabalho.jsp").forward(request, response);
 	}
+	
+	//Tentando listar horários em Marcaçoes Feitas
+	private void listarHorariosMF(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String cpf = request.getParameter("cpf");
+		List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);
+		request.setAttribute("horarios", horarios);
+		request.getRequestDispatcher("controleDeHora.jsp").forward(request, response);
+	}
+
 	
 	private void exibirFormularioEdicao(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {

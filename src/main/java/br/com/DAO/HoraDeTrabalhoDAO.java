@@ -91,6 +91,18 @@ public class HoraDeTrabalhoDAO {
         }
     }
     
+    public List<HorarioDeTrabalho> listarTodosPorCpf(String cpf) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            String jpql = "SELECT r FROM HorarioDeTrabalho r WHERE r.cpf = :cpf";
+            Query query = entityManager.createQuery(jpql);
+            query.setParameter("cpf", cpf);
+            return query.getResultList();
+        } finally {
+            entityManager.close();
+        }
+    }
+    
     public void excluirPorCPF(String cpf) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
