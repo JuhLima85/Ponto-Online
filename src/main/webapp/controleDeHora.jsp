@@ -33,11 +33,19 @@
     <input type="hidden" name="action" value="list">
     <label for="cpf">CPF:</label>
     <input type="text" id="cpf" name="cpf">
-    <input type="submit" value="Horários Previstos">
+    <input type="submit" value="Buscar">
 </form>
 	   
-   <ul id="horariosList">
-   <c:forEach var="horario" items="${sessionScope.horarios}">
+  <ul id="horariosList">
+    <c:if test="${empty sessionScope.horarios}">
+        <c:if test="${empty sessionScope.cpf}">
+            <li>Nenhum CPF informado.</li>
+        </c:if>
+        <c:if test="${not empty sessionScope.cpf}">
+            <li>Este CPF ainda não foi cadastrado. Entre em contato com RH.</li>
+        </c:if>
+    </c:if>
+    <c:forEach var="horario" items="${sessionScope.horarios}">
         <li>
             <strong>CPF:</strong> <span class="cpf">${horario.getCpf()}</span><br><br>
             <div class="horario-container">
@@ -50,12 +58,10 @@
             </div>
         </li>
     </c:forEach>
-    <c:if test="${empty sessionScope.horarios}">
-        <li>Nenhum CPF informado.</li>
-    </c:if>
 </ul>
+
 	
-	<h2 class="comMargem">Marcações Feitas</h2>
+	<h2 class="comMargem">Registro de Entrada / Saída</h2>
 	<form  method="POST" action="MarcacoesFeitasServlet">
 		<input type="hidden" name="action" value="add"> <label>
 			

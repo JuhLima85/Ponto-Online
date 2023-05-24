@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import br.com.Entity.HorarioDeTrabalho;
 import br.com.Entity.MarcacoesFeitas;
 
 public class MarcacoesFeitasDAO {
@@ -81,7 +82,19 @@ public class MarcacoesFeitasDAO {
 	            entityManager.close();
 	        }
 	    }
-
+	    
+	    public List<MarcacoesFeitas> listarTodosPorCpf(String cpf) {
+	        EntityManager entityManager = entityManagerFactory.createEntityManager();
+	        try {
+	            String jpql = "SELECT m FROM MarcacoesFeitas m WHERE m.cpf = :cpf";
+	            Query query = entityManager.createQuery(jpql);
+	            query.setParameter("cpf", cpf);
+	            return query.getResultList();
+	        } finally {
+	            entityManager.close();
+	        }
+	    }
+	    
 	    public void excluir(MarcacoesFeitas registroPonto) {
 	        EntityManager entityManager = entityManagerFactory.createEntityManager();
 	        try {

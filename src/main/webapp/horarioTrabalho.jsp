@@ -21,25 +21,26 @@
 			<input type="hidden" name="action" value="add"> <input
 				type="hidden" name="delete_all" value="true">
 			<div>
+			<h2>Cadastro de Funcionário:</h2><br>
 				<label> CPF: <input type="text" name="cpf"
 					value="${not empty param.cpf ? param.cpf : ''}" required></label>
-			</div>
-			<h2 class="comMargem">Horário de Trabalho</h2>
+			</div>			
 			Entrada: <input type="text" name="entrada"
 				pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM"
-				maxlength="5"> Saída: <input type="text" name="saida"
+				maxlength="5" required> Saída: <input type="text" name="saida"
 				pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM"
-				maxlength="5">
+				maxlength="5" required>
 			<div>
 				<br> <input type="submit" value="Cadastrar"> <input
 					type="button" value="Excluir todos"
 					onclick="if(confirm('Tem certeza que deseja excluir todos?')) { document.forms[0].action='HoraDeTrabalhoServlet?action=delete_all'; document.forms[0].submit(); }">
 			</div>
 		</form>
-
+<br>
 		<div class="clear"></div>
 
 		<!-- Lista os horários de trabalho cadastrados -->
+		
 		<table class="horarios">
 			<thead>
 				<tr>
