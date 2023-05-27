@@ -10,20 +10,31 @@ public class ResultadoCalculoAtraso {
 
     private String cpf;
     private String entrada;
-    private String saida;   
+    private String intervaloInicio;
+    private String intervaloFim;
+    private String saida;
 
-	public ResultadoCalculoAtraso(String cpf, String entrada, String saida) {
-		super();
-		this.cpf = cpf;
-		this.entrada = entrada;
-		this.saida = saida;
-	}
 
 	public ResultadoCalculoAtraso() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
+	}	
 	
+	public ResultadoCalculoAtraso(String diferenca) {
+		super();
+		this.diferenca = diferenca;
+		
+	}
+
+
+
+	public ResultadoCalculoAtraso(String cpf, String entrada, String saida) {
+		super();
+		this.cpf = cpf;
+		this.entrada = entrada;	
+		this.saida = saida;		
+	}
+
 	public ResultadoCalculoAtraso(String diferenca, String periodoAtraso, String entrada, String saida) {
 
         this.diferenca = diferenca;
@@ -37,7 +48,24 @@ public class ResultadoCalculoAtraso {
         this.mensagem = mensagem;
     }
     
-    public String getDiferenca() {
+    
+    public String getIntervaloInicio() {
+		return intervaloInicio;
+	}
+
+	public void setIntervaloInicio(String intervaloInicio) {
+		this.intervaloInicio = intervaloInicio;
+	}
+
+	public String getIntervaloFim() {
+		return intervaloFim;
+	}
+
+	public void setIntervaloFim(String intervaloFim) {
+		this.intervaloFim = intervaloFim;
+	}
+
+	public String getDiferenca() {
         return diferenca;
     }
     

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.DAO.CalculoAtrasoDAO;
 import br.com.DAO.MarcacoesFeitasDAO;
 import br.com.Entity.MarcacoesFeitas;
 
@@ -16,12 +17,11 @@ import br.com.Entity.MarcacoesFeitas;
 public class MarcacoesFeitasServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
-    private MarcacoesFeitasDAO marcacoesFeitasDAO; 
-    //private CalculoAtrasoDAO trabalho;   
+    private MarcacoesFeitasDAO marcacoesFeitasDAO;   
 
     public void init() {
         marcacoesFeitasDAO = new MarcacoesFeitasDAO();
-        //trabalho = new CalculoAtrasoDAO();         
+               
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +37,6 @@ public class MarcacoesFeitasServlet extends HttpServlet {
 				break;
 			}
 		} catch (Exception e) {
-			// trata a exceção
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter().write("Ocorreu um erro ao processar a solicitação: " + e.getMessage());
 		}    	
@@ -45,7 +44,7 @@ public class MarcacoesFeitasServlet extends HttpServlet {
     }
     
     private void adicionarMarcacao(HttpServletRequest request, HttpServletResponse response) throws Exception {    	
-    	String cpf = (String) request.getSession().getAttribute("cpf");//recebo cpf por sessão para saber em qual cpf marcar as horasre
+    	String cpf = (String) request.getSession().getAttribute("cpf");//recebo cpf por sessão para saber em qual cpf marcar as horas
     	request.getSession().setAttribute("cpf", cpf);// insiro o cpf no request para ser usado no método listar     	
     	String entrada = request.getParameter("entrada");
         String intervaloInicio = request.getParameter("intervaloInicio");
@@ -57,20 +56,39 @@ public class MarcacoesFeitasServlet extends HttpServlet {
         horario.setEntrada(entrada);
         horario.setIntervaloInicio(intervaloInicio);
         horario.setIntervaloFim(intervaloFim);
-        horario.setSaida(saida);
-        
-        if(entrada == null || entrada.isEmpty()) {                   
-        	MarcacoesFeitas resgate = new MarcacoesFeitas();
-        	resgate = marcacoesFeitasDAO.buscarUltimaEntrada();
-        	horario.setId(resgate.getId());
-        	horario.setEntrada(resgate.getEntrada());           	
-          
-           	CalculoAtrasoServlet calculoAtrasoServlet = new CalculoAtrasoServlet();       
-           	calculoAtrasoServlet.adicionarAtraso(horario);      
-        }else { 
-        	// se entrada estiver presente ele apenas salva a entrada
-        	 marcacoesFeitasDAO.salvar(horario);        
-        }        
+        horario.setSaida(saida);                   
+        	
+        	if(entrada == null || entrada.isEmpty()) {
+        		//Resgata as informações e salva
+        		MarcacoesFeitas resgate = new MarcacoesFeitas();        		
+            	resgate = marcacoesFeitasDAO.buscarUltimaEntrada();
+            	if(!horario.getIntervaloInicio().isEmpty()) {            		
+            		horario.setId(resgate.getId());
+            		horario.setEntrada(resgate.getEntrada());                	
+                	//Update no id da entrada
+               	 CalculoAtrasoDAO atrasoDAO = new CalculoAtrasoDAO();	        
+        	        atrasoDAO.atualizar(horario);     	 
+            	}else if(!horario.getIntervaloFim().isEmpty()) {
+            		horario.setId(resgate.getId());
+            		horario.setEntrada(resgate.getEntrada());
+                	horario.setIntervaloInicio(resgate.getIntervaloInicio());
+                	//Update no id da entrada
+                  	 CalculoAtrasoDAO atrasoDAO = new CalculoAtrasoDAO();	        
+           	        atrasoDAO.atualizar(horario);     	 
+            	}else if(!horario.getSaida().isEmpty()) {
+            		horario.setId(resgate.getId());
+            		horario.setEntrada(resgate.getEntrada());
+                	horario.setIntervaloInicio(resgate.getIntervaloInicio());
+                	horario.setIntervaloFim(resgate.getIntervaloFim());
+                	// Aplicamos o calculo 
+                	CalculoAtrasoServlet calculoAtrasoServlet = new CalculoAtrasoServlet();       
+                   	calculoAtrasoServlet.adicionarAtraso(horario); 
+            	}          	
+            	       
+        	}else {        		
+     	    // se entrada estiver presente ele apenas salva a entrada
+             	 marcacoesFeitasDAO.salvar(horario); 
+        	}                
         listarMarcacoes(request, response);        
 }
     

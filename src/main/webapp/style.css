@@ -74,6 +74,11 @@ input[type="button"]:hover,
 .horarios th, .horarios td {
     text-align: center;
     padding: 10px;
+    border-right: 1px solid white; /*Linha fina branca*/
+}
+
+.horarios th:last-child, .horarios td:last-child { /*Linha fina branca*/
+    border-right: none;
 }
 
 .horarios th {

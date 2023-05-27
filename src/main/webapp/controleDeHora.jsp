@@ -46,48 +46,51 @@
         </c:if>
     </c:if>
     <c:forEach var="horario" items="${sessionScope.horarios}">
-        <li>
-            <strong>CPF:</strong> <span class="cpf">${horario.getCpf()}</span><br><br>
-            <div class="horario-container">
-                <div class="horario-item">
-                    <strong>Entrada:</strong> ${horario.getEntrada()}
-                </div>
-                <div class="horario-item">
-                    <strong>Saída:</strong> ${horario.getSaida()}
-                </div>
-            </div>
-        </li>
-    </c:forEach>
+  <li>
+    <strong>CPF:</strong> <span class="cpf">${horario.getCpf()}</span><br><br>
+    <div class="horario-container">
+      <div class="horario-item">
+        <strong>Entrada:</strong> ${horario.getEntrada()}<br><br>
+        <strong>Intervalo:</strong> ${horario.getIntervaloInicio()}
+      </div>
+      <div class="horario-item">
+        <strong>Retorno:</strong> ${horario.getIntervaloFim()}<br><br>
+        <strong>Saída:</strong> ${horario.getSaida()}
+      </div>
+    </div>
+  </li>
+</c:forEach>
 </ul>
-
 	
-	<h2 class="comMargem">Registro de Entrada / Saída</h2>
+	<h2 class="comMargem">Marcar Ponto</h2>
 	<form  method="POST" action="MarcacoesFeitasServlet">
-		<input type="hidden" name="action" value="add"> <label>
-			
-		</label> Entrada: <input type="text" name="entrada" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5"> 				
-				 Saída: <input type="text" name="saida" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5">
+		<input type="hidden" name="action" value="add"> <label></label> 		
+		Entrada: <input type="text" name="entrada" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5"> 				
+		Intervalo: <input type="text" name="intervaloInicio" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5">
+		Retorno: <input type="text" name="intervaloFim" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5">
+		Saída: <input type="text" name="saida" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5">
 		<div>
 			<br> <input type="submit" value="Cadastrar">
 		</div>
-	</form>
-	
+	</form>	
 	<!-- Lista das marcações feitas -->
 	<table class="horarios">
 		<thead>
 			<tr>
 				<th>Entrada</th>				
+				<th>Intervalo</th>
+				<th>Retorno</th>
 				<th>Saída</th>
-				<th>Período Alterado</th>
 				<th>Horas Extras / Atrasos</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="marcacao" items="${marcacoes}">
 				<tr>
-					<td>${marcacao.entrada}</td>					
+					<td>${marcacao.entrada}</td>
+					<td>${marcacao.intervaloInicio}</td>
+					<td>${marcacao.intervaloFim}</td>					
 					<td>${marcacao.saida}</td>
-					<td>${marcacao.periodoAtraso}</td>
 					<td>${marcacao.qtdHorasNegativa}</td>
 				</tr>
 			</c:forEach>
@@ -97,34 +100,14 @@
 	<div class="clear"></div>	
 	 <div class="voltar-container">
     <a href="index.jsp" class="btn-voltar">Voltar</a>
-  </div>
-	
+  </div>	
 	</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
 <script>
-/*
-//ver se esse escript está sendo aplicado
-var horarios = ${horarios}; // Obtém a lista de horários do atributo "horarios" do objeto request
 
-var horariosListElement = document.getElementById("horariosList");
-if (horarios.length > 0) {
-  for (var i = 0; i < horarios.length; i++) {
-    var horario = horarios[i];
-    var listItem = document.createElement("li");
-    listItem.innerHTML = "<strong>CPF:</strong> " + horario.cpf + "<br>" +
-                         "<strong>Entrada:</strong> " + horario.entrada + "<br>" +
-                         "<strong>Saída:</strong> " + horario.saida;
-    horariosListElement.appendChild(listItem);
-  }
-} else {
-  var noHorariosItem = document.createElement("li");
-  noHorariosItem.textContent = "Nenhum CPF informado.";
-  horariosListElement.appendChild(noHorariosItem);
-}
-*/
 </script>
 	<script>
   	function editarHorario(id) {
@@ -149,6 +132,8 @@ if (horarios.length > 0) {
   //para aplicar automaticamente a máscara ao campo de valor hora
   $(document).ready(function() {
   $('input[name="entrada"]').mask('00:00');
+  $('input[name="intervaloInicio"]').mask('00:00');
+  $('input[name="intervaloFim"]').mask('00:00');
   $('input[name="saida"]').mask('00:00');
 });
 </script>

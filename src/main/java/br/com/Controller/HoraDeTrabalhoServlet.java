@@ -116,7 +116,7 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 	    List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);
 	    
 	    HttpSession session = request.getSession();
-	    session.setAttribute("cpf", cpf); // Armazena o CPF na 
+	    session.setAttribute("cpf", cpf); // Armazena o CPF na sessão em vez de atribuí-la ao objeto request, para que possamos usar em outro servlet e conseguir usa-lo ao adicionar Marcações feitas
 	 // Armazena a lista de horários na sessão em vez de atribuí-la ao objeto request, para que os horários permaneçam listado ao navegar na tela
 	    session.setAttribute("horarios", horarios); 
 
@@ -138,7 +138,7 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 	    HorarioDeTrabalho horario = new HorarioDeTrabalho();
 	    horario.setId(Long.parseLong(idConverter));
 	    horario.setEntrada(request.getParameter("entrada"));
-	    horario.setSaida(request.getParameter("saida"));
+	    horario.setSaida(request.getParameter("saida"));	    
 	    horaDeTrabalhoDAO.atualizar(horario);
 	    response.sendRedirect("controleDeHora.jsp");
 	}
