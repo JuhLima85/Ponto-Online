@@ -1,96 +1,163 @@
-/* Define a fonte e a cor do texto */
 body {
 	background-color: #F5F5F5;
-  font-family: Arial, sans-serif;
-  color: #333;
+	font-family: Arial, sans-serif;
+	color: #333;
 }
 
-/* Define um estilo do título principal */
-.comMargem {
-	text-align: left;
-	margin-top: 80px;  
+.container {
+	width: 50%;
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	border-radius: 10px;
 }
 
-.semMargem{
-	text-align: left;
+.titulos {
+	text-align: center;
+	align-items: center;
 }
 
 /* Adiciona um espaçamento entre os elementos */
 form, div {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 /* Define um estilo para o botão */
-input[type="submit"],
-input[type="button"],
-.btn-voltar {
-  background-color: #4CAF50;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+input[type="submit"], input[type="button"], .btn-voltar {
+	background-color: #4CAF50;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
-input[type="submit"]:hover,
-input[type="button"]:hover,
-.btn-voltar:hover {
-  background-color: #3e8e41;
+input[type="submit"]:hover, input[type="button"]:hover, .btn-voltar:hover
+	{
+	background-color: #3e8e41;
 }
 
 .voltar-container {
-  position: absolute; /* Adiciona posicionamento absoluto */
- right: 10px; /* Adiciona margem à direita */
-  bottom: 10px; /* Adiciona margem inferior */
-  margin-top: 10px; /* Define uma margem para separar do topo */
-}  
-    
+	text-align: center;
+	align-items: center;
+}
+
 .editar {
 	background-color: blue;
-        color: white;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-right: 05px;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 05px;
 }
-.excluir{
-	background-color: red;
-        color: white;
-        padding: 8px 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
+
+.excluir {
+	background-color: #DC143C;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 /* Define um estilo para a tabela */
 .horarios {
-    border-collapse: collapse;
-    width: 100%;
-    max-width: 500px;
-   float: left;
+	border-collapse: collapse;
+	width: 100%;
+	table-layout: auto;
 }
 
 .horarios th, .horarios td {
-    text-align: center;
-    padding: 10px;
-    border-right: 1px solid white; /*Linha fina branca*/
-}
-
-.horarios th:last-child, .horarios td:last-child { /*Linha fina branca*/
-    border-right: none;
+	text-align: center;
+	padding: 10px;
 }
 
 .horarios th {
-    background-color: #ddd; /*#ddd*/
-    font-weight: bold;
+	background-color: #ddd;
+	font-weight: bold;
 }
 
 .horarios tbody tr:nth-child(even) {
-    background-color: #D6EAF8; /*f2f2f2*/
+	background-color: #D6EAF8;
+}
+
+.coluna-botoes {
+	width: 30%;
 }
 
 /* Limpa o posicionamento anterior */
 .clear {
-  clear: both;
+	clear: both;
+}
+
+.cpf {
+	font-weight: bold;
+	color: red;
+}
+
+.horario-container {
+	display: flex;
+}
+
+.horario-item {
+	margin-right: 10px;
+}
+
+footer {
+	background-color: #f5f5f5;
+	text-align: center;
+	align-self: center;
+	font-size: 15px;
+	padding: 20px;
+}
+
+.logo-cabecalho {
+	width: 50%; /* A imagem ocupará 70% da largura disponível */
+	height: auto; /* A altura será ajustada proporcionalmente */
+	display: block;
+	/* Define o elemento como bloco para alinhar à esquerda */
+	margin-left: auto; /* Centraliza horizontalmente à esquerda */
+	margin-right: auto; /* Centraliza horizontalmente à direita */
+}
+
+.header {
+	background-color: white;
+}
+
+.retangulo {
+	width: 95%;
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin: 0 auto;
+	margin-bottom: 15px;
+	border-radius: 20px;
+}
+
+.btn-agradecimentos {
+	background-color: #007FFF;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 0 auto;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.btn-agradecimentos:hover {
+	background-color: #00A8FF;
+}
+
+.contagr {
+	display: flex;
+	justify-content: center;
+	margin-top: 60px;
+}
+
+.error-message {
+	color: red;
+	display: none;
 }

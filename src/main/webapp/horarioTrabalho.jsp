@@ -12,22 +12,22 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<jsp:include page="cabecalho.jsp"/>
 	<div class="container">
 
-		<h1>Registro de Ponto</h1>
+		<h1 class="titulos">Registro de Ponto - Recursos Humanos</h1>
 
 		<form method="POST" action="HoraDeTrabalhoServlet">
 	<input type="hidden" name="action" value="add">
 	<input type="hidden" name="delete_all" value="true">
 	<div>
-		<h2>Cadastro de Funcionário:</h2><br>
+		<h2 class="titulos">Cadastro de Funcionário</h2><br>
 		<label> CPF: <input type="text" name="cpf" value="${not empty param.cpf ? param.cpf : ''}" required></label>
 	</div>
 	<br>
 	1º Período: 
 	<input type="text" name="entrada" style="margin-right: 10px; text-align: center;" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="Entrada HH:MM" maxlength="5" required>
-	<input type="text" name="intervaloInicio" style="text-align: center;" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="Intervalo HH:MM" maxlength="5" required><br><br>
+	<input type="text" name="intervaloInicio" style="text-align: center;" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="Intervalo HH:MM" maxlength="5" required><br>
 	
 	2º Período: 
 	<input type="text" name="intervaloFim" style="margin-right: 10px; text-align: center;" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="Retorno HH:MM" maxlength="5" required>
@@ -116,5 +116,6 @@
   $('input[name="saida"]').mask('00:00');
 });
 </script>
+<jsp:include page="rodape.jsp"/>
 </body>
 </html>

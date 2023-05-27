@@ -5,29 +5,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Marcaçoes Feitas</title>
+<title>Marcações Feitas</title>
 <link rel="stylesheet" href="style.css">
-
-<style>
-  .cpf {
-    font-weight: bold;
-    color: red;   
-  }
-
-  .horario-container {
-    display: flex;
-  }
-
-  .horario-item {
-    margin-right: 10px;
-  }
-</style>
 </head>
 <body>
-
-<div class="container">	
-	<h2 class="semMargem">Registro de ponto</h2>
-	<h2 class="semMargem">Previsão de Horários de Trabalho</h2>
+<jsp:include page="cabecalho.jsp" />
+<div class="container">
+	<h1 class="titulos">Registro de ponto - Funcionários</h1>
+	
+<div class="retangulo">
+	<h2 class="titulos">Horário de Trabalho</h2>
 	
 	<form method="POST" action="HoraDeTrabalhoServlet">
     <input type="hidden" name="action" value="list">
@@ -46,7 +33,7 @@
         </c:if>
     </c:if>
     <c:forEach var="horario" items="${sessionScope.horarios}">
-  <li>
+        <li>
     <strong>CPF:</strong> <span class="cpf">${horario.getCpf()}</span><br><br>
     <div class="horario-container">
       <div class="horario-item">
@@ -61,18 +48,22 @@
   </li>
 </c:forEach>
 </ul>
-	
-	<h2 class="comMargem">Marcar Ponto</h2>
+</div>
+
+<div class="retangulo">
+	<h2 class="titulos">Registro de Entrada / Saída</h2>
 	<form  method="POST" action="MarcacoesFeitasServlet">
-		<input type="hidden" name="action" value="add"> <label></label> 		
+		<input type="hidden" name="action" value="add"> <label></label>
 		Entrada: <input type="text" name="entrada" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5"> 				
 		Intervalo: <input type="text" name="intervaloInicio" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5">
+		<br>
 		Retorno: <input type="text" name="intervaloFim" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5">
 		Saída: <input type="text" name="saida" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5">
-		<div>
+		<div class="voltar-container">
 			<br> <input type="submit" value="Cadastrar">
 		</div>
 	</form>	
+	
 	<!-- Lista das marcações feitas -->
 	<table class="horarios">
 		<thead>
@@ -96,11 +87,12 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+</div>
 	<div class="clear"></div>	
 	 <div class="voltar-container">
     <a href="index.jsp" class="btn-voltar">Voltar</a>
-  </div>	
+  </div>
+	
 	</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -137,5 +129,6 @@
   $('input[name="saida"]').mask('00:00');
 });
 </script>
+<jsp:include page="rodape.jsp" />
 </body>
 </html>
