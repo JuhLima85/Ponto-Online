@@ -59,17 +59,33 @@ public class HoraDeTrabalhoDAO {
             entityManager.close();
         }
     }
-
+    
     public HorarioDeTrabalho buscarPorCpf(String cpf) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             Query query = entityManager.createQuery("SELECT h FROM HorarioDeTrabalho h WHERE h.cpf = :cpf");
             query.setParameter("cpf", cpf);
-            return (HorarioDeTrabalho) query.getSingleResult();
+            List<HorarioDeTrabalho> resultados = query.getResultList();
+            if (!resultados.isEmpty()) {
+                return resultados.get(0);
+            } else {
+                return null; // Retorna null quando nenhum resultado é encontrado
+            }
         } finally {
             entityManager.close();
         }
     }
+
+//    public HorarioDeTrabalho buscarPorCpf(String cpf) {
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        try {
+//            Query query = entityManager.createQuery("SELECT h FROM HorarioDeTrabalho h WHERE h.cpf = :cpf");
+//            query.setParameter("cpf", cpf);
+//            return (HorarioDeTrabalho) query.getSingleResult();
+//        } finally {
+//            entityManager.close();
+//        }
+//    }
     
     public HorarioDeTrabalho selecionarHorario(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();

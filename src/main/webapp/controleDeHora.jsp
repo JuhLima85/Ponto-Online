@@ -51,7 +51,7 @@
 </div>
 
 <div class="retangulo">
-	<h2 class="titulos">Registro de Entrada / Saída</h2>
+	<h2 class="titulos">Registrar Entrada / Saída</h2>
 	<form  method="POST" action="MarcacoesFeitasServlet">
 		<input type="hidden" name="action" value="add"> <label></label>
 		Entrada: <input type="text" name="entrada" pattern="^([0-1][0-9]|2[0-3]):[0-5][0-9]$" placeholder="HH:MM" maxlength="5"> 				

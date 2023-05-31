@@ -22,13 +22,15 @@ public class HorarioDeTrabalho implements Serializable {
 	private String intervaloInicio;
     private String intervaloFim;
     private String saida;
+    //Aqui
+    private String senha;
 
     public HorarioDeTrabalho() {
 		// TODO Auto-generated constructor stub
 	}   
    
 	public HorarioDeTrabalho(Long id, String cpf, String entrada, String intervaloInicio, String intervaloFim,
-			String saida) {
+			String saida, String senha) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
@@ -36,6 +38,7 @@ public class HorarioDeTrabalho implements Serializable {
 		this.intervaloInicio = intervaloInicio;
 		this.intervaloFim = intervaloFim;
 		this.saida = saida;
+		this.senha = senha;
 	}
 
 	public Long getId() {
@@ -84,6 +87,14 @@ public class HorarioDeTrabalho implements Serializable {
 
 	public void setSaida(String saida) {
 		this.saida = saida;
+	}	
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override
@@ -114,7 +125,7 @@ public class HorarioDeTrabalho implements Serializable {
 	@Override
 	public String toString() {
 		return "HorarioDeTrabalho [id=" + id + ", cpf=" + cpf + ", entrada=" + entrada + ", intervaloInicio="
-				+ intervaloInicio + ", intervaloFim=" + intervaloFim + ", saida=" + saida + "]";
+				+ intervaloInicio + ", intervaloFim=" + intervaloFim + ", saida=" + saida + ", senha=" + senha + "]";
 	}
 	
 	

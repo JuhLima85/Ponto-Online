@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.DAO.HoraDeTrabalhoDAO;
+import br.com.DAO.MarcacoesFeitasDAO;
 import br.com.Entity.HorarioDeTrabalho;
+import br.com.Entity.MarcacoesFeitas;
 
 @WebServlet("/HoraDeTrabalhoServlet")
 public class HoraDeTrabalhoServlet extends HttpServlet {
@@ -52,38 +54,49 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 			 case "list":
 				 listarHorariosMF(request, response);
 	                break;
-			default:
-				listarHorarios(request, response);				
-				break;
 			}
 		} catch (Exception e) {			
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			response.getWriter().write("Ocorreu um erro ao processar a solicitação: " + e.getMessage());
 		}
 	}
-
+	
 	private void adicionarHorario(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String cpf = request.getParameter("cpf");
-		String entrada = request.getParameter("entrada");
-		String intervaloInicio = request.getParameter("intervaloInicio");
-		String intervaloFim = request.getParameter("intervaloFim");
-		String saida = request.getParameter("saida");
+	    String cpf = request.getParameter("cpf");
+	    String senha = request.getParameter("senha");
+	    String entrada = request.getParameter("entrada");
+	    String intervaloInicio = request.getParameter("intervaloInicio");
+	    String intervaloFim = request.getParameter("intervaloFim");
+	    String saida = request.getParameter("saida");
 
-		if (cpf == null || cpf.isEmpty() || entrada == null || entrada.isEmpty() || saida == null || saida.isEmpty()) {
-			throw new Exception("Todos os campos devem ser preenchidos");
-		}
+	    HorarioDeTrabalho ht = horaDeTrabalhoDAO.buscarPorCpf(cpf);
 
-		HorarioDeTrabalho horario = new HorarioDeTrabalho();
+	    if (ht == null || ht.getCpf() == null || ht.getCpf().isEmpty()) {
+	        if (cpf == null || cpf.isEmpty() || senha == null || senha.isEmpty() ||
+	                entrada == null || entrada.isEmpty() || intervaloInicio == null || intervaloInicio.isEmpty()) {
+	        	 request.setAttribute("mensagem", "Preencha pelo menos um período por completo.");
+	     	   request.getRequestDispatcher("horarioTrabalho.jsp").forward(request, response);
+	        }else {
 
-		horario.setCpf(cpf);
-		horario.setEntrada(entrada);
-		horario.setIntervaloInicio(intervaloInicio);
-		horario.setIntervaloFim(intervaloFim);
-		horario.setSaida(saida);		
+	        HorarioDeTrabalho horario = new HorarioDeTrabalho();
+	        horario.setCpf(cpf);
+	        horario.setSenha(senha);
+	        horario.setEntrada(entrada);
+	        horario.setIntervaloInicio(intervaloInicio);
+	        horario.setIntervaloFim(intervaloFim);
+	        horario.setSaida(saida);
 
-		horaDeTrabalhoDAO.salvar(horario);	
+	        horaDeTrabalhoDAO.salvar(horario);
 
-		listarHorarios(request, response);
+	        listarHorarios(request, response);
+	        }
+	    } else {
+
+	    List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);
+	    request.setAttribute("horarios", horarios);
+	    request.setAttribute("mensagem", "Este CPF já está cadastrado. Caso necessário, utilize as opções Editar ou Excluir.");
+	    request.getRequestDispatcher("horarioTrabalho.jsp").forward(request, response);
+	    }
 	}
 
 	private void removerHorario(HttpServletRequest request, HttpServletResponse response)
@@ -113,8 +126,7 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 	private void listarHorariosMF(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
 	    String cpf = request.getParameter("cpf");
-	    List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);
-	    
+	    List<HorarioDeTrabalho> horarios = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);	    
 	    HttpSession session = request.getSession();
 	    session.setAttribute("cpf", cpf); // Armazena o CPF na sessão em vez de atribuí-la ao objeto request, para que possamos usar em outro servlet e conseguir usa-lo ao adicionar Marcações feitas
 	 // Armazena a lista de horários na sessão em vez de atribuí-la ao objeto request, para que os horários permaneçam listado ao navegar na tela
@@ -122,6 +134,17 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 
 	    request.getRequestDispatcher("controleDeHora.jsp").forward(request, response);
 	}	
+		
+	private void listarHorariosPorCPF(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+			String cpf = request.getParameter("cpf");
+			List<HorarioDeTrabalho> lista = horaDeTrabalhoDAO.listarTodosPorCpf(cpf);
+			HttpSession session = request.getSession();
+			session.setAttribute("cpf", cpf); // Armazena o CPF na sessão em vez de atribuí-la ao objeto request, para que possamos usar em outro servlet e conseguir usa-lo ao adicionar Marcações feitas
+			// Armazena a lista de horários na sessão em vez de atribuí-la ao objeto request, para que os horários permaneçam listado ao navegar na tela
+			session.setAttribute("lista", lista);
+			request.getRequestDispatcher("horarioTrabalho.jsp").forward(request, response);
+			}
 	
 	private void exibirFormularioEdicao(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
@@ -148,20 +171,17 @@ public class HoraDeTrabalhoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter("action");			
 		if (action != null) {
-			switch (action) {
+			switch (action) {			
 			case "list":
-				listarHorarios(request, response);
-				break;
+				  listarHorariosPorCPF(request, response);
+	                break;
 			 case "edit":
 	                exibirFormularioEdicao(request, response);
 	                break;
-			default:
-				listarHorarios(request, response);
-				break;
+
 			}
-		} else {
-			listarHorarios(request, response);
-		}
+	} 
+
 	}
 
 }
