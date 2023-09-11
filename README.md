@@ -1,6 +1,6 @@
 # Ponto Online
 
-"Ponto Online" é um sistema que crei para treinar tecnologias mais antigas do Java, este sistema faz o controle de ponto de funcionários de uma empresa. Através desta aplicação, é possível realizar diversas operações, como cadastro, gerenciamento de horários, marcação de ponto, listagem e controle de horas extras e atrasos. O sistema também incorpora validações de senha e CPF para garantir a integridade dos dados.
+"Ponto Online" é um sistema que criei para treinar tecnologias mais antigas do Java, este sistema faz o controle de ponto de funcionários de uma empresa. Através desta aplicação, é possível realizar diversas operações, como cadastro, gerenciamento de horários, marcação de ponto, listagem e controle de horas extras e atrasos. O sistema também incorpora validações de senha e CPF para garantir a integridade dos dados.
 
 A arquitetura do sistema é baseada em Servlets e JSP, onde o código está estruturado em camadas, incluindo o acesso a dados por meio de classes DAO (Data Access Object) e a interação com o usuário através de Servlets e JSPs.
 
