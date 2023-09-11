@@ -14,13 +14,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "marcacoesfeitas")
 public class MarcacoesFeitas implements Serializable {
-
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;	
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	private LocalDate data = LocalDate.now();
 	private String cpf;
 	private String entrada;
@@ -30,16 +29,18 @@ public class MarcacoesFeitas implements Serializable {
 	private String periodoAtraso;
 	private String qtdHorasNegativa;
 	
-	@ManyToOne
-    @JoinColumn(name = "cpf", referencedColumnName = "cpf", insertable = false, updatable = false)
-    private HorarioDeTrabalho horarioTrabalho;
+	@ManyToOne	
+	@JoinColumn(name = "cpf", referencedColumnName = "cpf", insertable = false, updatable = false)	
+	private HorarioDeTrabalho horarioTrabalho;
+
 
 	public MarcacoesFeitas() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public MarcacoesFeitas(Long id,  LocalDate data, String cpf, String entrada, String intervaloInicio, String intervaloFim,
-			String saida, String periodoAtraso, String qtdHorasNegativa, HorarioDeTrabalho horarioTrabalho) {
+	public MarcacoesFeitas(Long id, LocalDate data, String cpf, String entrada, String intervaloInicio,
+			String intervaloFim, String saida, String periodoAtraso, String qtdHorasNegativa,
+			HorarioDeTrabalho horarioTrabalho) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -60,13 +61,12 @@ public class MarcacoesFeitas implements Serializable {
 	}
 
 	public LocalDate getData() {
-	    return data;
+		return data;
 	}
 
 	public void setData(LocalDate data) {
-	    this.data = data;
+		this.data = data;
 	}
-
 
 	public String getCpf() {
 		return cpf;
@@ -106,7 +106,7 @@ public class MarcacoesFeitas implements Serializable {
 
 	public void setSaida(String saida) {
 		this.saida = saida;
-	}	
+	}
 
 	public String getPeriodoAtraso() {
 		return periodoAtraso;
@@ -159,8 +159,9 @@ public class MarcacoesFeitas implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MarcacoesFeitas [id=" + id + ", data=" + data + ", cpf=" + cpf + ", entrada=" + entrada + ", intervaloInicio="
-				+ intervaloInicio + ", intervaloFim=" + intervaloFim + ", saida=" + saida + ", periodoAtraso="+ periodoAtraso +", qtdHorasNegativa="+ qtdHorasNegativa + ", horarioTrabalho="
+		return "MarcacoesFeitas [id=" + id + ", data=" + data + ", cpf=" + cpf + ", entrada=" + entrada
+				+ ", intervaloInicio=" + intervaloInicio + ", intervaloFim=" + intervaloFim + ", saida=" + saida
+				+ ", periodoAtraso=" + periodoAtraso + ", qtdHorasNegativa=" + qtdHorasNegativa + ", horarioTrabalho="
 				+ horarioTrabalho + "]";
 	}
 }

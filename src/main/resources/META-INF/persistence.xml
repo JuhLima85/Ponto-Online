@@ -5,16 +5,16 @@
              version="2.2">
     <persistence-unit name="RegistroPontoUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>br.com.Entity.BancoDeHoras</class>
         <class>br.com.Entity.HorarioDeTrabalho</class>
         <class>br.com.Entity.MarcacoesFeitas</class>
-        <class>br.com.Entity.CalculoAtraso</class>
-        <class>br.com.Entity.CalculoHoraExtra</class>
+        <class>br.com.Entity.AcessoContador</class>      
         <properties>
             <!-- Configurações de conexão -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/registerdb" />
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="2509" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://85.239.248.117/juliana2634_Mysql" />
+            <property name="javax.persistence.jdbc.user" value="juliana2634_juliana2634" />
+            <property name="javax.persistence.jdbc.password" value="@szJ1901" />
             
             <!-- Configurações do Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />

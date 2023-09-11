@@ -8,8 +8,8 @@
 </head>
 <body>
 	<div class="header">
-		<img src="imagens/logoSET.jpg" alt="SET - Soluções em Tecnologia"
-			src="Logo SET" class="logo-cabecalho">
+		<img src="imagens/header1.png" alt="CodeDeving - Do Back ao Front"
+			src="Logo CodeDeving" class="logo-cabecalho">
 	</div>
 </body>
 </html>

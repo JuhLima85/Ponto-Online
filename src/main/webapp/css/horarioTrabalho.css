@@ -1,0 +1,239 @@
+.container {
+	width: 80%;
+	padding: 10px;
+	margin: 0 auto;
+	margin-bottom: 20px;
+	border-radius: 10px;
+	overflow-x: auto;
+}
+
+.titulos {
+	text-align: center;
+	align-items: center;
+}
+
+.card-sup {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.retangulo {
+	border: 1px solid #ccc;
+	padding: 20px;
+	margin: 15px;
+	border-radius: 20px;
+	overflow-x: auto;
+	align-items: center;
+	text-align: center;
+}
+
+.retangulo-table {
+	margin: 15px;
+	border-radius: 20px;
+	overflow-x: auto;
+	align-items: center;
+	text-align: center;
+}
+
+.form-container label:nth-child(1) {
+	margin-right: 20px;
+}
+
+.atencao {
+	font-weight: bold;
+	color: red;
+	text-align: center;
+	align-self: center;
+}
+
+.clear {
+	clear: both;
+}
+
+.horarios {
+	border-collapse: collapse;
+	width: 100%;
+	table-layout: auto;
+}
+
+.horarios th, .horarios td {
+	text-align: center;
+	padding: 10px;
+}
+
+.horarios th {
+	background-color: #ddd;
+	font-weight: bold;
+}
+
+.horarios tbody tr:nth-child(even) {
+	background-color: #D6EAF8;
+}
+
+input[type="submit"], input[type="button"], .btn-voltar {
+	background-color: #4CAF50;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, .btn-voltar:hover
+	{
+	background-color: #3e8e41;
+}
+
+.editar {
+	background-color: blue;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-right: 05px;
+}
+
+.excluir {
+	background-color: #DC143C;
+	color: white;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.voltar-container {
+	text-align: center;
+	align-items: center;
+}
+
+.menu-button {
+	display: none;
+	position: fixed;
+	top: 75px;
+	right: 10px;
+	background-color: #00FF00;
+	color: white;
+	padding: 10px 15px;
+	border-radius: 5px;
+	cursor: pointer;
+	z-index: 9999;
+	border: none;
+}
+
+.menu-lateral {
+	position: fixed;
+	top: 1%;
+	left: 0;
+	width: 250px;
+	height: 100%;
+	background-color: #000066;
+	color: white;
+	padding-top: 20px;
+	box-shadow: none;
+	transition: left 0.3s ease;
+	z-index: 9998;
+	display: block;
+	border: none;
+}
+
+.menu-lateral ul {
+	list-style-type: none;
+	padding: 150% 0;
+}
+
+.menu-lateral li {
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+}
+
+.menu-lateral a {
+	display: block;
+	padding: 10px;
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+	transition: background-color 0.3s ease;
+	cursor: pointer;
+}
+
+.menu-lateral a:hover {
+	background-color: rgba(0, 255, 0, 0.3);
+}
+
+.menu-lateral li:not(:last-child) {
+	border-bottom: 1px solid #333;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.menu-lateral li:first-child {
+	border-top: 1px solid #333;
+	padding-top: 5px;
+	margin-top: 5px;
+}
+
+.menu-lateral li:last-child {
+	border-bottom: 1px solid #333;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+	margin-left: 280px;
+	padding: 20px;
+}
+
+@media ( max-width : 600px) {
+	.menu-button {
+		display: block;
+	}
+	.menu-lateral {
+		display: none;
+	}
+	.section {
+		margin-left: 0;
+		padding: 20px
+	}
+	.horarios {
+		font-size: 14px;
+	}
+	.retangulo, .retangulo-table {
+		font-size: 14px;
+		padding: 20px;
+		width: 95%;
+		max-width: 800px;
+		margin-left: 0px;
+		margin-right: auto;
+	}
+	input[type="submit"], input[type="button"], .btn-voltar {
+		font-size: 14px;
+		padding: 8px 16px;
+	}
+	input[type="date"] {
+		width: 170px;
+	}
+	.editar, .excluir {
+		font-size: 12px;
+		padding: 6px 12px;
+		margin-bottom: 5px;
+		width: 60px;
+		text-align: center;
+	}
+	h1 {
+		font-size: 24px;
+	}
+	h2 {
+		font-size: 18px;
+	}
+	#pesquisa-cpf {
+		margin-bottom: 0px;
+	}
+}

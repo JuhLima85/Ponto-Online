@@ -3,8 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Registro de Ponto</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ponto Online</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
 </head>
 <body>
 	<jsp:include page="cabecalho.jsp" />
@@ -13,23 +17,25 @@
 		String button = request.getParameter("button");
 
 		if ("Recursos Humanos".equals(button)) {
-			if ("senha123".equals(request.getParameter("password"))) {
+			if ("123".equals(request.getParameter("password"))) {
 				response.sendRedirect("horarioTrabalho.jsp");
 			} else {
 		%>
 		<h1 class="titulos">Registro de Ponto - Recursos Humanos</h1>
-		<form method="post" action="login.jsp" class="titulos" onsubmit="return validateForm()">
+		<form method="post" action="login.jsp" class="titulos"
+			onsubmit="return validateForm()">
 			<input type="hidden" name="button" value="Recursos Humanos">
-			<label>Senha:</label> <input type="password"
-				id="password" name="password"> <input type="submit"
-				value="Enviar">
-			<p id="error-message" style="color: red; display: none;">
-				Senha incorreta. Tente novamente.</p>
+			<label>Senha:</label> <input type="password" id="password"
+				name="password"> <input type="submit" value="Login"><br>
+			<strong><span class="senha-label">Digite:</span></strong> <span
+				class="senha">123</span>
+			<p id="error-message" style="color: red; display: none;">Senha
+				incorreta. Tente novamente.</p>
 		</form>
 		<%
 		}
 		} else if ("Funcionários".equals(button)) {
-		response.sendRedirect("controleDeHora.jsp");
+		response.sendRedirect("registrarPonto.jsp");
 		}
 		%>
 	</div>
@@ -40,13 +46,13 @@
 		function validateForm() {
 			var password = document.getElementById("password").value;
 
-			if (password !== "senha123") {
-				document.getElementById("error-message").style.display = "block";	
+			if (password !== "123") {
+				document.getElementById("error-message").style.display = "block";
 				document.getElementById("password").value = "";
-				return false; // Impede o envio do formulário
+				return false;
 			}
 
-			return true; // Permite o envio do formulário
+			return true;
 		}
 	</script>
 	<jsp:include page="rodape.jsp" />

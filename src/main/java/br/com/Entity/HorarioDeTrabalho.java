@@ -1,11 +1,15 @@
 package br.com.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,12 +22,18 @@ public class HorarioDeTrabalho implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String cpf;
+	 private String senha;
 	private String entrada;
 	private String intervaloInicio;
     private String intervaloFim;
-    private String saida;
-    //Aqui
-    private String senha;
+    private String saida;      
+    
+   
+    @OneToMany(mappedBy = "horarioTrabalho", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MarcacoesFeitas> marcacoesFeitas = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "horarioTrabalho", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BancoDeHoras> bancoDeHoras = new ArrayList<>();
 
     public HorarioDeTrabalho() {
 		// TODO Auto-generated constructor stub
@@ -126,7 +136,5 @@ public class HorarioDeTrabalho implements Serializable {
 	public String toString() {
 		return "HorarioDeTrabalho [id=" + id + ", cpf=" + cpf + ", entrada=" + entrada + ", intervaloInicio="
 				+ intervaloInicio + ", intervaloFim=" + intervaloFim + ", saida=" + saida + ", senha=" + senha + "]";
-	}
-	
-	
+	}	
 }
