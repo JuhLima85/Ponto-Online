@@ -1,18 +1,18 @@
-# Ponto Online
+# Ponto Oline
 
-"Ponto Online" é um sistema que criei para treinar tecnologias mais antigas do Java, este sistema faz o controle de ponto de funcionários de uma empresa. Através desta aplicação, é possível realizar diversas operações, como cadastro, gerenciamento de horários, marcação de ponto, listagem e controle de horas extras e atrasos. O sistema também incorpora validações de senha e CPF para garantir a integridade dos dados.
+"Ponto Online" é um sistema que crei para treinar tecnologias mais antigas do Java, este sistema faz o controle de ponto de funcionários de uma empresa. Através desta aplicação, é possível realizar diversas operações, como cadastro, gerenciamento de horários, marcação de ponto, listagem e controle de horas extras e atrasos. O sistema também incorpora validações de senha e CPF para garantir a integridade dos dados.
 
 A arquitetura do sistema é baseada em Servlets e JSP, onde o código está estruturado em camadas, incluindo o acesso a dados por meio de classes DAO (Data Access Object) e a interação com o usuário através de Servlets e JSPs.
 
 Acesse a aplicação online: [https://pontoonline.codedeving.com.br/pontoonline/index.jsp](https://pontoonline.codedeving.com.br/pontoonline/index.jsp)
 
-Acesse mais informações sobre a aplicação: [https://codedeving.netlify.app/info-projeto2](https://codedeving.netlify.app/info-projeto2)
+
+🌟 **Veja mais informações sobre este projeto no meu <span style="color: #00FF00; font-size: 1.1em;">portfólio</span>: [https://codedeving.netlify.app](https://codedeving.netlify.app)** 🌟
 
 # Frameworks e Tecnologias
 
-- Servlet
-- JPA (Java Persistence API) com Hibernate
-- Padrão MVC
+- Java 8
+- JPA com Hibernate
 - JSP (JavaServer Pages)
 
 ## Banco de Dados:
